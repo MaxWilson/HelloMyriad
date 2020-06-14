@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Library.fs"/>
+    <Compile Include="Generated.fs">
+      <MyriadFile>Library.fs</MyriadFile>
+      <MyriadNameSpace>Gen</MyriadNameSpace>
+    </Compile>
+    <Compile Include="Main.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Myriad.Core" Version="0.2.8" />
+    <PackageReference Include="Myriad.Plugins" Version="0.2.8" />
+    <PackageReference Include="Myriad.Sdk" Version="0.2.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+  </ItemGroup>
+
+</Project>
