@@ -32,3 +32,31 @@ module Test1 =
               four = mapfour record'.four }
 namespace rec Gen
 
+module Animal =
+    open HelloMyriad
+
+    let toString (x: Animal) =
+        match x with
+        | Cat -> "Cat"
+        | Dog -> "Dog"
+
+    let fromString (x: string) =
+        match x with
+        | "Cat" -> Some Cat
+        | "Dog" -> Some Dog
+        | _ -> None
+
+    let toTag (x: Animal) =
+        match x with
+        | Cat -> 0
+        | Dog -> 1
+
+    let isCat (x: Animal) =
+        match x with
+        | Cat -> true
+        | _ -> false
+
+    let isDog (x: Animal) =
+        match x with
+        | Dog -> true
+        | _ -> false
