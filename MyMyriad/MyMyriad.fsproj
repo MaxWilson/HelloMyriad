@@ -5,23 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <MyriadSdkGenerator Include="$(MSBuildThisFileDirectory)\..\MyMyriad\bin\Debug\netstandard2.1\MyMyriad.dll" />
     <Compile Include="Library.fs" />
-    <Compile Include="Generated.fs">
-      <MyriadFile>Library.fs</MyriadFile>
-      <MyriadNameSpace>Gen</MyriadNameSpace>
-    </Compile>
-    <Compile Include="Main.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Myriad.Core" Version="0.2.8" />
-    <PackageReference Include="Myriad.Plugins" Version="0.2.8" />
-    <PackageReference Include="Myriad.Sdk" Version="0.2.8" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyMyriad\MyMyriad.fsproj" />
     <ProjectReference Include="..\Optics\Optics.fsproj" />
   </ItemGroup>
 

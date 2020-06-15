@@ -4,32 +4,7 @@
 //------------------------------------------------------------------------------
 namespace rec Gen
 
-module Test1 =
-    open HelloMyriad
 
-    let one (x: Test1) = x.one
-    let two (x: Test1) = x.two
-    let three (x: Test1) = x.three
-    let four (x: Test1) = x.four
-
-    let create (one: int) (two: string) (three: float) (four: float32): Test1 =
-        { one = one
-          two = two
-          three = three
-          four = four }
-
-    let map
-        (mapone: int -> int)
-        (maptwo: string -> string)
-        (mapthree: float -> float)
-        (mapfour: float32 -> float32)
-        (record': Test1)
-        =
-        { record' with
-              one = mapone record'.one
-              two = maptwo record'.two
-              three = mapthree record'.three
-              four = mapfour record'.four }
 namespace rec Gen
 
 module Animal =
@@ -60,3 +35,28 @@ module Animal =
         match x with
         | Dog -> true
         | _ -> false
+namespace rec Gen
+
+module Test1Lenses =
+    open HelloMyriad
+
+    let one =
+        Optics.lens (fun (x: Test1) -> x.one) (fun (value: int)(x: Test1)  -> { x with one = value })
+
+    let two =
+        Optics.lens ((fun (x: Test1) -> x.two), (fun (x: Test1) (value: string) -> { x with two = value }))
+
+    let three =
+        Optics.lens ((fun (x: Test1) -> x.three), (fun (x: Test1) (value: float) -> { x with three = value }))
+
+    let four =
+        Optics.lens ((fun (x: Test1) -> x.four), (fun (x: Test1) (value: float32) -> { x with four = value }))
+
+module Test2Lenses =
+    open HelloMyriad
+
+    let one =
+        Optics.lens ((fun (x: Test2) -> x.one), (fun (x: Test2) (value: Test1) -> { x with one = value }))
+
+    let two =
+        Optics.lens ((fun (x: Test2) -> x.two), (fun (x: Test2) (value: string) -> { x with two = value }))
