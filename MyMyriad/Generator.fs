@@ -92,7 +92,7 @@ module internal CreateLenses =
 
         let getterName = Ident("getter", range.Zero)
         let pattern =
-            SynPatRcd.CreateLongIdent(LongIdentWithDots.CreateString "Lens'", [])
+            SynPatRcd.CreateLongIdent(LongIdentWithDots.CreateString "lens", [])
 
         let matchCaseIdentParts =
             if requiresQualifiedAccess then

@@ -7,78 +7,76 @@ namespace rec Gen
 
 namespace rec Gen
 
-module Animal =
+module Species =
     open HelloMyriad
 
-    let toString (x: Animal) =
+    let toString (x: Species) =
         match x with
         | Cat -> "Cat"
         | Dog -> "Dog"
         | Lizard -> "Lizard"
-        | Pig -> "Pig"
+        | Cow -> "Cow"
 
     let fromString (x: string) =
         match x with
         | "Cat" -> Some Cat
         | "Dog" -> Some Dog
         | "Lizard" -> Some Lizard
-        | "Pig" -> Some Pig
+        | "Cow" -> Some Cow
         | _ -> None
 
-    let toTag (x: Animal) =
+    let toTag (x: Species) =
         match x with
         | Cat -> 0
         | Dog -> 1
         | Lizard -> 2
-        | Pig -> 3
+        | Cow -> 3
 
-    let isCat (x: Animal) =
+    let isCat (x: Species) =
         match x with
         | Cat -> true
         | _ -> false
 
-    let isDog (x: Animal) =
+    let isDog (x: Species) =
         match x with
         | Dog -> true
         | _ -> false
 
-    let isLizard (x: Animal) =
+    let isLizard (x: Species) =
         match x with
         | Lizard -> true
         | _ -> false
 
-    let isPig (x: Animal) =
+    let isCow (x: Species) =
         match x with
-        | Pig -> true
+        | Cow -> true
         | _ -> false
 namespace rec Gen
 
-module Test1 =
+module Animal =
     open HelloMyriad
 
-    let one_ =
-        Optics.lens (fun (data: Test1) -> data.one) (fun (value: int) (data: Test1) -> { data with one = value })
+    let name_ =
+        Optics.lens (fun (data: Animal) -> data.name) (fun (value: Name) (data: Animal) -> { data with name = value })
 
-    let two_ =
-        Optics.lens (fun (data: Test1) -> data.two) (fun (value: string) (data: Test1) -> { data with two = value })
+    let kind_ =
+        Optics.lens (fun (data: Animal) -> data.kind) (fun (value: Species) (data: Animal) -> { data with kind = value })
 
-    let three_ =
-        Optics.lens (fun (data: Test1) -> data.three) (fun (value: float) (data: Test1) -> { data with three = value })
+    let age_ =
+        Optics.lens (fun (data: Animal) -> data.age) (fun (value: int) (data: Animal) -> { data with age = value })
 
-    let four_ =
-        Optics.lens (fun (data: Test1) -> data.four) (fun (value: float32) (data: Test1) -> { data with four = value })
-
-module Test2 =
+module Barn =
     open HelloMyriad
 
-    let one_ =
-        Optics.lens (fun (data: Test2) -> data.one) (fun (value: Test1) (data: Test2) -> { data with one = value })
+    let sign_ =
+        Optics.lens (fun (data: Barn) -> data.sign) (fun (value: Name) (data: Barn) -> { data with sign = value })
 
-    let two_ =
-        Optics.lens (fun (data: Test2) -> data.two) (fun (value: string) (data: Test2) -> { data with two = value })
+    let pets_ =
+        Optics.lens (fun (data: Barn) -> data.pets) (fun (value: Animal list) (data: Barn) -> { data with pets = value })
 
-module Foo =
+module Name =
     open HelloMyriad
 
-    let Lens' =
-        Optics.lens (function Foo x -> x) (fun (value: int) (_: Foo) -> Foo value)
+    let lens =
+        Optics.lens (function
+            | Name x -> x) (fun (value: string) (_: Name) -> Name value)

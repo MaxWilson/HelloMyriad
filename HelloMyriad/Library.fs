@@ -3,12 +3,15 @@
 open Myriad.Plugins
 open MyMyriad
 
-[<Generator.LensesAttribute("Optics.lens")>]
-type Test1 = { one: int; two: string; three: float; four: float32 }
-[<Generator.LensesAttribute("Optics.lens")>]
-type Test2 = { one: Test1; two: string }
-
 [<Generator.DuCases>]
-type Animal = Cat | Dog | Lizard | Pig
-[<Generator.LensesAttribute("Optics.lens")>]
-type Foo = Foo of int
+type Species = Cat | Dog | Lizard | Cow
+[<Generator.LensesAttribute>]
+type Name = Name of string
+[<Generator.LensesAttribute>]
+type Animal = { name: Name; kind: Species; age: int }
+
+[<Generator.LensesAttribute>]
+type Barn = {
+    sign: Name
+    pets: Animal list
+    }
