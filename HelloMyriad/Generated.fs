@@ -14,17 +14,23 @@ module Animal =
         match x with
         | Cat -> "Cat"
         | Dog -> "Dog"
+        | Lizard -> "Lizard"
+        | Pig -> "Pig"
 
     let fromString (x: string) =
         match x with
         | "Cat" -> Some Cat
         | "Dog" -> Some Dog
+        | "Lizard" -> Some Lizard
+        | "Pig" -> Some Pig
         | _ -> None
 
     let toTag (x: Animal) =
         match x with
         | Cat -> 0
         | Dog -> 1
+        | Lizard -> 2
+        | Pig -> 3
 
     let isCat (x: Animal) =
         match x with
@@ -35,28 +41,44 @@ module Animal =
         match x with
         | Dog -> true
         | _ -> false
+
+    let isLizard (x: Animal) =
+        match x with
+        | Lizard -> true
+        | _ -> false
+
+    let isPig (x: Animal) =
+        match x with
+        | Pig -> true
+        | _ -> false
 namespace rec Gen
 
-module Test1Lenses =
+module Test1 =
     open HelloMyriad
 
-    let one =
-        Optics.lens (fun (x: Test1) -> x.one) (fun (value: int)(x: Test1)  -> { x with one = value })
+    let one_ =
+        Optics.lens (fun (data: Test1) -> data.one) (fun (value: int) (data: Test1) -> { data with one = value })
 
-    let two =
-        Optics.lens ((fun (x: Test1) -> x.two), (fun (x: Test1) (value: string) -> { x with two = value }))
+    let two_ =
+        Optics.lens (fun (data: Test1) -> data.two) (fun (value: string) (data: Test1) -> { data with two = value })
 
-    let three =
-        Optics.lens ((fun (x: Test1) -> x.three), (fun (x: Test1) (value: float) -> { x with three = value }))
+    let three_ =
+        Optics.lens (fun (data: Test1) -> data.three) (fun (value: float) (data: Test1) -> { data with three = value })
 
-    let four =
-        Optics.lens ((fun (x: Test1) -> x.four), (fun (x: Test1) (value: float32) -> { x with four = value }))
+    let four_ =
+        Optics.lens (fun (data: Test1) -> data.four) (fun (value: float32) (data: Test1) -> { data with four = value })
 
-module Test2Lenses =
+module Test2 =
     open HelloMyriad
 
-    let one =
-        Optics.lens ((fun (x: Test2) -> x.one), (fun (x: Test2) (value: Test1) -> { x with one = value }))
+    let one_ =
+        Optics.lens (fun (data: Test2) -> data.one) (fun (value: Test1) (data: Test2) -> { data with one = value })
 
-    let two =
-        Optics.lens ((fun (x: Test2) -> x.two), (fun (x: Test2) (value: string) -> { x with two = value }))
+    let two_ =
+        Optics.lens (fun (data: Test2) -> data.two) (fun (value: string) (data: Test2) -> { data with two = value })
+
+module Foo =
+    open HelloMyriad
+
+    let Lens' =
+        Optics.lens (function Foo x -> x) (fun (value: int) (_: Foo) -> Foo value)
